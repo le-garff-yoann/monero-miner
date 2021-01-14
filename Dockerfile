@@ -1,6 +1,6 @@
 FROM ubuntu:latest AS build
 
-ARG XMRIG_VERSION='v6.3.2'
+ARG XMRIG_VERSION='v6.7.1'
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -9,8 +9,6 @@ WORKDIR /root
 RUN git clone https://github.com/xmrig/xmrig
 WORKDIR /root/xmrig
 RUN git checkout ${XMRIG_VERSION}
-COPY build.patch /root/xmrig/
-RUN git apply build.patch
 RUN mkdir build && cd build && cmake .. -DOPENSSL_USE_STATIC_LIBS=TRUE && make
 
 FROM ubuntu:latest
@@ -21,4 +19,4 @@ WORKDIR /home/monero
 COPY --from=build --chown=monero /root/xmrig/build/xmrig /home/monero
 
 ENTRYPOINT ["./xmrig"]
-CMD ["--url=pool.supportxmr.com:5555", "--user=8BszDYwfJGYTR9Fr8dS9Cq6c9bXm8N5y49SXNFUfMRkSeiAUgYtcHhFNztqHV9HKRnZViiFb9EUHuDZMfbZVFQhiKbGKvTs", "--pass=Docker", "-k", "--coin=monero"]˚
+CMD ["--url=pool.supportxmr.com:443", "--user=85ovqiZLJvaEMgdMsxbau69CyGWoqY6KiBjGAjd7WnAGgV5PhEvsWJofMS2PYRUmwaZHJgfPaXEGkFM5uCuLa9uaLN7XHk4", "--pass=Docker", "-k", "--coin=monero", "--tls"]˚
