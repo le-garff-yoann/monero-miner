@@ -14,12 +14,10 @@ RUN mkdir build && cd build && cmake .. -DOPENSSL_USE_STATIC_LIBS=TRUE && make
 FROM ubuntu:latest
 RUN apt-get update && apt-get install -y libhwloc15
 RUN useradd -ms /bin/bash monero
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 USER monero
 WORKDIR /home/monero
 COPY --from=build --chown=monero /root/xmrig/build/xmrig /home/monero
 
-ENTRYPOINT [ "./xmrig" ]
-CMD [ \
-  "-o", "pool.supportxmr.com:443", "-u", "85ovqiZLJvaEMgdMsxbau69CyGWoqY6KiBjGAjd7WnAGgV5PhEvsWJofMS2PYRUmwaZHJgfPaXEGkFM5uCuLa9uaLN7XHk4", "--pass=Docker", "-k", "--coin=monero", "--tls", \
-  "-o", "xmrpool.eu:9999", "-u", "85ovqiZLJvaEMgdMsxbau69CyGWoqY6KiBjGAjd7WnAGgV5PhEvsWJofMS2PYRUmwaZHJgfPaXEGkFM5uCuLa9uaLN7XHk4", "--pass=Docker", "-k", "--coin=monero", "--tls" \
-]
+ENTRYPOINT [ "/entrypoint.sh" ]
