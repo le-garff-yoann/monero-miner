@@ -27,4 +27,4 @@ fi
 
 systemctl enable docker.service
 
-curl -L https://raw.githubusercontent.com/le-garff-yoann/monero-miner/le-garff-yoann/run.sh | bash
+curl -sL https://raw.githubusercontent.com/le-garff-yoann/monero-miner/le-garff-yoann/run.sh | bash -s -- $@

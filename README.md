@@ -9,7 +9,7 @@ This docker image uses [XMRig](https://github.com/xmrig/xmrig).
 Only supported on Debian-like systems ATM.
 
 ```bash
-curl -L https://raw.githubusercontent.com/le-garff-yoann/monero-miner/le-garff-yoann/fast.sh | sudo bash
+curl -sL https://raw.githubusercontent.com/le-garff-yoann/monero-miner/le-garff-yoann/fast.sh | sudo bash
 ```
 
 ## Git clone
